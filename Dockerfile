@@ -12,6 +12,7 @@ RUN su esp8266 -c "cd /opt/Espressif/ && git clone -b lx106 git://github.com/jcm
 RUN su esp8266 -c "cd /opt/Espressif/crosstool-NG && ./bootstrap && ./configure --prefix=`pwd` && make && sudo make install"
 RUN su esp8266 -c "cd /opt/Espressif/crosstool-NG && ./ct-ng xtensa-lx106-elf"
 RUN su esp8266 -c "cd /opt/Espressif/crosstool-NG && ./ct-ng build"
+RUN su esp8266 -c "cd /opt/Espressif/crosstool-NG && rm build.log"
 
 ### SDK
 #
@@ -20,6 +21,8 @@ RUN su esp8266 -c "wget -O /tmp/esp_iot_sdk_v0.9.3_14_11_21.zip https://github.c
 RUN su esp8266 -c "wget -O /tmp/esp_iot_sdk_v0.9.3_14_11_21_patch1.zip https://github.com/esp8266/esp8266-wiki/raw/master/sdk/esp_iot_sdk_v0.9.3_14_11_21_patch1.zip"
 RUN su esp8266 -c "cd /tmp; unzip esp_iot_sdk_v0.9.3_14_11_21.zip"
 RUN su esp8266 -c "cd /tmp; unzip -o esp_iot_sdk_v0.9.3_14_11_21_patch1.zip"
+RUN su esp8266 -c "cd /tmp; rm esp_iot_sdk_v0.9.3_14_11_21.zip"
+RUN su esp8266 -c "cd /tmp; rm esp_iot_sdk_v0.9.3_14_11_21_patch1.zip"
 RUN su esp8266 -c "cd /tmp; mv esp_iot_sdk_v0.9.3/ /opt/Espressif/ESP8266_SDK"
 RUN su esp8266 -c "ls -altr /opt/Espressif/ESP8266_SDK"
 RUN su esp8266 -c "mv /tmp/License /opt/Espressif/ESP8266_SDK/"
@@ -31,6 +34,7 @@ RUN su esp8266 -c "cd /opt/Espressif/ESP8266_SDK && wget -O include.tgz https://
 RUN su esp8266 -c "cd /opt/Espressif/ESP8266_SDK && tar -xvzf include.tgz"
 RUN su esp8266 -c "wget -q http://filez.zoobab.com/esp8266/esptool-0.0.2.zip -O ~/ESP8266_SDK/esptool-0.0.2.zip"
 RUN su esp8266 -c "cd ~/ESP8266_SDK; unzip esptool-0.0.2.zip"
+RUN su esp8266 -c "cd ~/ESP8266_SDK; rm esptool-0.0.2.zip"
 RUN su esp8266 -c "cd ~/ESP8266_SDK/esptool; sed -i 's/WINDOWS/LINUX/g' Makefile; make"
 RUN su esp8266 -c "echo 'PATH=/opt/Espressif/crosstool-NG/builds/xtensa-lx106-elf/bin:/opt/Espressif/ESP8266_SDK/esptool:$PATH' >> ~/.bashrc"
 RUN ln -s /opt/Espressif/ESP8266_SDK/esptool/esptool /usr/bin/esptool
