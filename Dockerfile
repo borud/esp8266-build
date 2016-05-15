@@ -18,5 +18,11 @@ RUN chmod 0440 /etc/sudoers.d/builder
 RUN su builder -c "git clone --recursive https://github.com/pfalcon/esp-open-sdk.git /home/builder/esp-open-sdk"
 RUN su builder -c "cd /home/builder/esp-open-sdk && make STANDALONE=y"
 
+### Install esptool.py
+RUN apt-get -y -q install python-setuptools python-dev python-pip
+RUN git clone https://github.com/pfalcon/esptool.git /tmp/esptool
+RUN cd /tmp/esptool && python setup.py install
+RUN rm -rf /tmp/esptool
+
 ENV PATH /home/builder/esp-open-sdk/xtensa-lx106-elf/bin:$PATH
 RUN echo $PATH
