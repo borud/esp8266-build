@@ -1,7 +1,15 @@
 # Build environment for ESP8266
 
-To start the build environment just do:
+## Building
 
-    docker run -u esp8266 -ti borud/esp8266-build
+    docker build -t esp8266-build .
+
+## Running
+
+    docker run -u builder -ti esp8266-build
+
+## Running from docker hub
+
+    docker run -u builder -ti borud/esp8266-build
 
 
